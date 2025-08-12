@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { Todo } from './entities/todo.entity';
 import { Status } from './enums/status.enum';
 
@@ -15,6 +15,10 @@ export class TodoRespository {
   }
 
   insert(todo: Todo) {
+    const entity = this.findById(todo.id);
+
+    if (entity) throw new ConflictException('Todo already exists');
+
     this.todoList.push(todo);
   }
 
