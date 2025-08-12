@@ -23,4 +23,20 @@ export class TodoRespository {
       if (value.id === id) value.status = Status.CANCELLED;
     });
   }
+
+  findById(id: string) {
+    return this.todoList.find((todo) => todo.id === id);
+  }
+
+  update(id: string, todo: Partial<Todo>) {
+    const entity = this.findById(id);
+
+    if (!entity) {
+      throw new Error('Todo not found');
+    }
+
+    Object.assign(entity, todo);
+    entity.updatedAt = new Date();
+    return entity;
+  }
 }

@@ -27,12 +27,12 @@ export class TodoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.todoService.findOne(+id);
+    return this.todoService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
-    return this.todoService.update(+id, updateTodoDto);
+    return this.todoService.update(id, updateTodoDto);
   }
 
   @Delete(':id')

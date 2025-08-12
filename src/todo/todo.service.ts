@@ -27,12 +27,12 @@ export class TodoService {
     return this.repository.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} todo`;
+  findOne(id: string) {
+    return this.repository.findById(id);
   }
 
-  update(id: number, updateTodoDto: UpdateTodoDto) {
-    return `This action updates a #${id} todo`;
+  update(id: string, updateTodoDto: UpdateTodoDto) {
+    return this.repository.update(id, updateTodoDto);
   }
 
   remove(id: string) {
