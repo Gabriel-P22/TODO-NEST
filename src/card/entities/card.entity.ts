@@ -1,14 +1,36 @@
 import { CardResponse } from '../dto/card-response';
 import { Status } from '../enums/status.enum';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
+@Entity()
 export class Card {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column()
   title: string;
+
+  @Column({ nullable: true })
   subTitle?: string;
+
+  @Column()
   description: string;
+
+  @Column({ type: 'enum', enum: Status })
   status: Status;
+
+  @UpdateDateColumn()
   createdAt: Date;
+
+  @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({ nullable: true })
   dueDate?: Date;
 
   constructor(

@@ -4,7 +4,6 @@ import { Card } from '../entities/card.entity';
 import { Transform } from 'class-transformer';
 
 export class CardRequest {
-  @IsNotEmpty()
   id: string;
 
   @IsNotEmpty()
