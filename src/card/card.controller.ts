@@ -14,7 +14,6 @@ import { CardService } from './card.service';
 import { CardRequest } from './dto/card-request';
 import { CardUpdate } from './dto/card-update.dto';
 import { CardResponse } from './dto/card-response';
-import { UpdateResult } from 'typeorm';
 
 @Controller('card')
 export class CardController {
