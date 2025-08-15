@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CardRequest } from './dto/card-request';
 import { CardUpdate } from './dto/card-update.dto';
 import { CardRespository } from './card.respository';
@@ -17,6 +21,10 @@ export class CardService {
   ) {}
 
   async create(payload: CardRequest) {
+    const entityCard: Card | null = await this.findById(payload.id);
+
+    if (entityCard?.id) throw new ConflictException('Card already exists');
+
     const savedCard: Card = await this.repository.save(payload);
 
     const card = Object.setPrototypeOf(savedCard, Card.prototype);
@@ -30,7 +38,7 @@ export class CardService {
   }
 
   async findOne(id: string): Promise<CardResponse> {
-    const card: Card | null = await this.repository.findOneBy({ id });
+    const card: Card | null = await this.findById(id);
 
     if (!card) throw new NotFoundException('Card not found');
 
@@ -43,10 +51,15 @@ export class CardService {
   }
 
   async remove(id: string): Promise<Card> {
-    const cardEntity: Card | null = await this.repository.findOneBy({ id });
+    const cardEntity: Card | null = await this.findById(id);
     if (cardEntity === null) throw new NotFoundException('card not found');
     cardEntity.status = Status.CANCELLED;
     await this.repository.save(cardEntity);
     return cardEntity;
+  }
+
+  private async findById(id: string): Promise<Card | null> {
+    if (!id) return null;
+    return await this.repository.findOne({ where: { id } });
   }
 }
