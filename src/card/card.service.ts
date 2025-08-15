@@ -5,12 +5,10 @@ import {
 } from '@nestjs/common';
 import { CardRequest } from './dto/card-request';
 import { CardUpdate } from './dto/card-update.dto';
-import { CardRespository } from './card.respository';
 import { Card } from './entities/card.entity';
 import { CardResponse } from './dto/card-response';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateResult } from 'typeorm/browser';
 import { Status } from './enums/status.enum';
 
 @Injectable()
