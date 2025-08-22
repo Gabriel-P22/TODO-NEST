@@ -9,11 +9,11 @@ export default class DatabaseConfig implements TypeOrmOptionsFactory {
   createTypeOrmOptions(connectionName?: string): TypeOrmModuleOptions {
     return {
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'admin',
-      password: 'admin',
-      database: 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      port: Number(process.env.DB_PORT) || 5432,
+      username: process.env.DB_USER || 'admin',
+      password: process.env.DB_PASSWORD || 'admin',
+      database: process.env.DB_NAME || 'todo_db',
       migrationsTableName: 'migrations',
       migrations: ['src/migrations/*{.ts,.js}'],
       autoLoadEntities: true,
