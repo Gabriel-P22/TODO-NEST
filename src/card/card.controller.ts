@@ -21,26 +21,29 @@ export class CardController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() payload: CardRequest): CardResponse {
-    return this.cardService.create(payload);
+  async create(@Body() payload: CardRequest): Promise<CardResponse> {
+    return await this.cardService.create(payload);
   }
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  findAll(): CardResponse[] {
-    return this.cardService.findAll();
+  async findAll(): Promise<CardResponse[]> {
+    return await this.cardService.findAll();
   }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
-  findOne(@Param('id') id: string): CardResponse | undefined {
-    return this.cardService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<CardResponse | null> {
+    return await this.cardService.findOne(id);
   }
 
   @Patch(':id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id') id: string, @Body() payload: CardUpdate): CardResponse {
-    return this.cardService.update(id, payload);
+  async update(
+    @Param('id') id: string,
+    @Body() payload: CardUpdate,
+  ): Promise<CardResponse> {
+    return await this.cardService.update(id, payload);
   }
 
   @Delete(':id')
